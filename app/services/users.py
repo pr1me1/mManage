@@ -8,12 +8,10 @@ from app.settings import ALLOWED_EXTENSIONS, MAX_FILE_SIZE, MEDIA_PATH, MEDIA_UR
 
 
 async def validate_image(file: UploadFile):
-    # Check file extension
     file_ext = os.path.splitext(file.filename)[1].lower()
     if file_ext not in ALLOWED_EXTENSIONS:
         raise HTTPException(400, "Invalid file type")
 
-    # Check file size
     if file.size > MAX_FILE_SIZE:
         raise HTTPException(400, "File too large")
 

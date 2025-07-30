@@ -9,26 +9,25 @@ router = APIRouter(prefix="/notifications", tags=["Notifications"])
 
 @router.get("/notifications/", response_model=list[NotificationResponse])
 async def get_notifications(current_user: current_user_dep, db: db_dep):
-    """User's notifications List"""
-    notifications = current_user.received_notifications.all()
+	notifications = current_user.received_notifications.all()
 
-    return notifications
+	return notifications
 
 
 @router.put("/notifications/{notification_id}/", response_model=NotificationResponse)
 async def read_notification(
-    current_user: current_user_dep, db: db_dep, notification_id: int
+		current_user: current_user_dep, db: db_dep, notification_id: int
 ):
-    notification = (
-        db.query(Notification).filter(Notification.id == notification_id).first()
-    )
+	notification = (
+		db.query(Notification).filter(Notification.id == notification_id).first()
+	)
 
-    if not notification:
-        raise HTTPException(status_code=404, detail="Notification not found")
+	if not notification:
+		raise HTTPException(status_code=404, detail="Notification not found")
 
-    notification.is_read = True
+	notification.is_read = True
 
-    db.commit()
-    db.refresh(notification)
+	db.commit()
+	db.refresh(notification)
 
-    return notification
+	return notification

@@ -21,7 +21,6 @@ router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
 @router.get("/all/", response_model=list[TaskListResponse])
 async def get_tasks(admin_user: admin_user_dep, db: db_dep):
-    """Admin only"""
     tasks = db.query(Task).all()
 
     return tasks

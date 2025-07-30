@@ -17,9 +17,6 @@ def verify_password(plain_password, hashed_password):
 
 
 def create_jwt_token(data: dict, expires_delta: float | None = None):
-	"""
-	- Creates a new JWT token for logging-in user
-	"""
 	delta = (
 		timedelta(minutes=expires_delta)
 		if expires_delta
